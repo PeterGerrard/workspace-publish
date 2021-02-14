@@ -16,7 +16,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v1
       - name: Install Dependencies
-        run: yarn
+        run: yarn install --focus
       - name: Create Release Pull Request
         uses: changesets/action@master
         env:
