@@ -53,7 +53,7 @@ jobs:
           mv NEXT_CHANGELOG.md CHANGELOG.md
           echo "v${{ steps.css_version.outputs.version }}" > VERSION.txt
         env:
-          GITHUB_AUTH: ${{ secrets.TOKEN }}
+          GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Commit
         run: |-
           git config user.email "release-bot@github.com"
