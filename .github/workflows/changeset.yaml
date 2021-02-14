@@ -4,18 +4,24 @@ on:
     branches:
       - main
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: yarn
+      - run: yarn build
   release:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout Repo
+        uses: actions/checkout@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
         with:
-          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
-          fetch-depth: 0
-
+          node-version: 12
       - name: Install Dependencies
         run: yarn
-
 # https://github.com/changesets/action/issues/66
       - name: Create Release Pull Request
         uses: jacobwgillespie/changesets-action@resolve-from
