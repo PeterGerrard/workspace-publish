@@ -1,5 +1,6 @@
 {
   "name": "@petergerrard/components",
+  "version": "0.0.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -21,6 +22,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "prepack": "yarn build"
+    "prepack": "yarn build",
+    "get-version": "node -pe \"require(\\\"./package.json\\\").version\""
   }
 }
