@@ -27,7 +27,7 @@ jobs:
           \"https://pkgs.dev.azure.com/peterlgerrard/_packaging/Testing/npm/registry/\":
             npmAlwaysAuth: true
             npmAuthIdent: ${{ secrets.PUBLISH_TOKEN }}
-            # BASE64 peterlgerrard:PAT token"
+            # BASE64 peterlgerrard:PAT token" >> .yarnrc.yml
     - run: |-
         yarn install
         yarn workspace @petergerrard/css npm publish
