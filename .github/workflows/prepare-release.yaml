@@ -51,6 +51,7 @@ jobs:
           cp RELEASE_NOTES.md  NEXT_CHANGELOG.md
           cat CHANGELOG.md >> NEXT_CHANGELOG.md
           mv NEXT_CHANGELOG.md CHANGELOG.md
+          echo "v${{ steps.css_version.outputs.version }}" > VERSION.txt
         env:
           GITHUB_AUTH: ${{ secrets.TOKEN }}
       - name: Create Commit
