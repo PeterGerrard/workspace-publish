@@ -17,6 +17,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - id: version
+      run: echo "::set-output name=value::$(cat VERSION.txt)"
     - name: Yarn Authenticate
       run: |-
         echo "npmRegistries:
@@ -27,4 +29,12 @@ jobs:
     - run: |-
         yarn workspace @petergerrrard/css npm publish
         yarn workspace @petergerrrard/components npm publish
-    
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{ steps.version.outputs.value }}
+        release_name: Release v${{ steps.version.outputs.value }}
+        body_path: RELEASE_NOTES.md
