@@ -17,6 +17,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Yarn Authenticate
+      run: |-
+        echo "npmRegistries:
+          \"https://pkgs.dev.azure.com/peterlgerrard/_packaging/Testing/npm/registry/\":
+            npmAlwaysAuth: true
+            npmAuthIdent: ${{ secrets.PUBLISH_TOKEN }}
+            # BASE64 peterlgerrard:PAT token"
     - run: |-
         yarn workspace @petergerrrard/css npm publish
         yarn workspace @petergerrrard/components npm publish
