@@ -57,6 +57,8 @@ jobs:
           GITHUB_AUTH: ${{ secrets.TOKEN }}
       - name: Create Commit
         run: |-
+          git config user.email "release-bot@github.com"
+          git config user.name "Release Bot"
           git add .
           git commit -m "Release ${{ steps.css_version.outputs.version }}"
           git push --force origin HEAD:release
