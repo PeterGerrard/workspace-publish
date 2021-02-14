@@ -16,7 +16,7 @@ jobs:
       - name: Create Release Pull Request
         uses: jacobwgillespie/changesets-action@resolve-from
         with:
-          version: yarn version changeset
+          version: yarn changeset version
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           NODE_OPTIONS: -r /home/runner/work/workspace-publish/workspace-publish/.pnp.js
