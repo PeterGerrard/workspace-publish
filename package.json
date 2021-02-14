@@ -6,5 +6,17 @@
   ],
   "scripts": {
     "build": "yarn workspace @petergerrard/css build && yarn workspace @petergerrard/components build"
+  },
+  "devDependencies": {
+    "lerna-changelog": "^1.0.1"
+  },
+  "changelog": {
+    "labels": {
+      "PR: Breaking Change :boom:": ":boom: Breaking Change",
+      "PR: New Feature :rocket:": ":rocket: New Feature",
+      "PR: Bug Fix :bug:": ":bug: Bug Fix",
+      "PR: Docs :memo:": ":memo: Documentation"
+    },
+    "cacheDir": ".changelog"
   }
 }
