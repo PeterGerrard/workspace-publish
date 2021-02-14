@@ -14,5 +14,6 @@
   "scripts": {
     "build": "postcss src/index.css --dir dist/",
     "prepack": "yarn build"
-  }
+  },
+  "version": "0.0.0"
 }

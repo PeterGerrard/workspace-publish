@@ -22,5 +22,6 @@
   "scripts": {
     "build": "tsc",
     "prepack": "yarn build"
-  }
+  },
+  "version": "0.0.0"
 }
