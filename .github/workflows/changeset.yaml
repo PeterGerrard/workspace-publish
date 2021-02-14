@@ -21,4 +21,4 @@ jobs:
         uses: jacobwgillespie/changesets-action@resolve-from
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_OPTIONS: -r /home/runner/work/workspace-publish/workspace-publish.pnp.js
+          NODE_OPTIONS: -r /home/runner/work/workspace-publish/workspace-publish/.pnp.js
