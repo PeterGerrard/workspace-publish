@@ -42,6 +42,14 @@ jobs:
         run: echo "CSS " && echo "Components " && exit 1
 
       - name: Create changelog
-        run: "yarn lerna-changelog --next-version v${{ steps.css_version.outputs.version }}"
+        id: changelog
+        run: |-
+          CHANGELOG=yarn lerna-changelog --next-version v${{ steps.css_version.outputs.version }}
+          echo $CHANGELOG >> CHANGELOG.md
+          CHANGELOG="${CHANGELOG//'%'/'%25'}"
+          CHANGELOG="${CHANGELOG//$'\n'/'%0A'}"
+          CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
+          echo "::set-output name=value::$CHANGELOG"
         env:
           GITHUB_AUTH: ${{ secrets.TOKEN }}
+        
