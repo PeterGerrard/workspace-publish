@@ -27,7 +27,7 @@ jobs:
         run: yarn install
 
       - name: Install packages
-        run: yarn version apply
+        run: yarn version apply --all
 
       - name: Get CSS Version
         id: css_version
