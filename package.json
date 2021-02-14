@@ -1,6 +1,7 @@
 {
   "name": "workspace-publish",
   "private": true,
+  "repository": "https://github.com/PeterGerrard/workspace-publish.git",
   "workspaces": [
     "packages/*"
   ],
