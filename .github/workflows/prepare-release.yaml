@@ -65,11 +65,26 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            github.pulls.create({
+            const prs = github.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
               head: 'release',
-              title: "Release ${{ steps.css_version.outputs.version }}",
               base: 'main'
-            })
+            });
+            if (prs.length > 0) {
+              github.pulls.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: prs[0].pull_number
+                title: "Release ${{ steps.css_version.outputs.version }}"
+              });
+            } else {
+              github.pulls.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                head: 'release',
+                title: "Release ${{ steps.css_version.outputs.version }}",
+                base: 'main'
+              })
+            }
         
