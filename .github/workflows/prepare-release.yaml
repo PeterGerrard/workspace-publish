@@ -26,6 +26,9 @@ jobs:
       - name: Install packages
         run: yarn install
 
+      - name: Install packages
+        run: yarn version apply
+
       - name: Get CSS Version
         id: css_version
         run: echo "::set-output name=version::$(yarn workspace @petergerrard/css get-version)"
@@ -40,4 +43,5 @@ jobs:
 
       - name: Create changelog
         run: "yarn lerna-changelog"
-        
+        env:
+          GITHUB_AUTH: ${{ secrets.TOKEN }}
