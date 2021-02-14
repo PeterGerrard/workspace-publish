@@ -52,4 +52,9 @@ jobs:
           echo "::set-output name=value::$CHANGELOG"
         env:
           GITHUB_AUTH: ${{ secrets.TOKEN }}
+      - name: Create Commit
+        run: |-
+          git add .
+          git commit -m "Release ${{ steps.css_version.outputs.version }}"
+          git push --force origin HEAD:release-${{ steps.css_version.outputs.version }}
         
