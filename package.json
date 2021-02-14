@@ -5,7 +5,8 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "yarn workspace @petergerrard/css build && yarn workspace @petergerrard/components build"
+    "build": "yarn workspace @petergerrard/css build && yarn workspace @petergerrard/components build",
+    "publish": "yarn workspace @petergerrard/css npm publish && yarn workspace @petergerrard/components npm publish"
   },
   "dependencies": {
     "@changesets/cli": "^2.14.1"
