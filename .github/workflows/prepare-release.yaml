@@ -47,12 +47,10 @@ jobs:
       - name: Create changelog
         id: changelog
         run: |-
-          CHANGELOG=$(yarn lerna-changelog --next-version v${{ steps.css_version.outputs.version }})
-          echo $CHANGELOG >> CHANGELOG.md
-          CHANGELOG="${CHANGELOG//'%'/'%25'}"
-          CHANGELOG="${CHANGELOG//$'\n'/'%0A'}"
-          CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
-          echo "::set-output name=value::$CHANGELOG"
+          yarn lerna-changelog --next-version v${{ steps.css_version.outputs.version }} > RELEASE_NOTES.md
+          cp RELEASE_NOTES.md  NEXT_CHANGELOG.md
+          cat CHANGELOG.md >> NEXT_CHANGELOG.md
+          mv NEXT_CHANGELOG.md CHANGELOG.md
         env:
           GITHUB_AUTH: ${{ secrets.TOKEN }}
       - name: Create Commit
