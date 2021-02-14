@@ -72,14 +72,14 @@ jobs:
               base: 'main'
             });
             if (prs.length > 0) {
-              /*await github.pulls.update({
+              await github.pulls.update({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                pull_number: prs[0].pull_number
+                pull_number: prs[0].pull_number,
                 title: "Release ${{ steps.css_version.outputs.version }}"
-              });*/
+              });
             } else {
-              gawait ithub.pulls.create({
+              await github.pulls.create({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 head: 'release',
