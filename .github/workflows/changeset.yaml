@@ -4,27 +4,17 @@ on:
     branches:
       - main
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - run: yarn
-      - run: yarn build
   release:
     name: Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v1
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12
       - name: Install Dependencies
         run: yarn
 # https://github.com/changesets/action/issues/66
       - name: Create Release Pull Request
         uses: jacobwgillespie/changesets-action@resolve-from
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
           NODE_OPTIONS: -r /home/runner/work/workspace-publish/workspace-publish/.pnp.js
