@@ -65,13 +65,13 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const prs = await github.pulls.list({
+            const prs = (await github.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
               head: 'release',
               base: 'main',
               state: 'open'
-            });
+            })).data;
             console.log({prs})
             if (prs.length > 0) {
               await github.pulls.update({
