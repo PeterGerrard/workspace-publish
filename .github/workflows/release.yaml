@@ -29,6 +29,7 @@ jobs:
             npmAuthIdent: ${{ secrets.PUBLISH_TOKEN }}
             # BASE64 peterlgerrard:PAT token"
     - run: |-
+        yarn install
         yarn workspace @petergerrard/css npm publish
         yarn workspace @petergerrard/components npm publish
     - name: Create Release
