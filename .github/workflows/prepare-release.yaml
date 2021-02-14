@@ -42,19 +42,25 @@ jobs:
 
       - name: Check version match
         if: ${{ steps.css_version.outputs.version != steps.components_version.outputs.version }}
-        run: echo "CSS " && echo "Components " && exit 1
+        run: echo "CSS ${{ steps.css_version.outputs.version }}" && echo "Components ${{ steps.components_version.outputs.version }}" && exit 1
 
+      - name: Get Current Version
+        id: current_version
+        run: echo "::set-output name=version::$(cat VERSION.txt)"
+        
       - name: Create changelog
+        if: ${{ steps.current_version.outputs.version != steps.components_version.outputs.version }}
         id: changelog
         run: |-
           yarn lerna-changelog --next-version v${{ steps.css_version.outputs.version }} > RELEASE_NOTES.md
           cp RELEASE_NOTES.md  NEXT_CHANGELOG.md
           cat CHANGELOG.md >> NEXT_CHANGELOG.md
           mv NEXT_CHANGELOG.md CHANGELOG.md
-          echo "v${{ steps.css_version.outputs.version }}" > VERSION.txt
+          echo "${{ steps.css_version.outputs.version }}" > VERSION.txt
         env:
           GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Commit
+        if: ${{ steps.current_version.outputs.version != steps.components_version.outputs.version }}
         run: |-
           git config user.email "release-bot@github.com"
           git config user.name "Release Bot"
@@ -62,6 +68,7 @@ jobs:
           git commit -m "Release ${{ steps.css_version.outputs.version }}"
           git push --force origin HEAD:release
       - uses: actions/github-script@v3
+        if: ${{ steps.current_version.outputs.version != steps.components_version.outputs.version }}
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
