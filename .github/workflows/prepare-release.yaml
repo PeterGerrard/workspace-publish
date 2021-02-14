@@ -77,7 +77,7 @@ jobs:
               await github.pulls.update({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                pull_number: prs[0].pull_number,
+                pull_number: prs[0].number,
                 title: "Release ${{ steps.css_version.outputs.version }}"
               });
             } else {
