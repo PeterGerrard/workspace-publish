@@ -44,7 +44,7 @@ jobs:
       - name: Create changelog
         id: changelog
         run: |-
-          CHANGELOG=yarn lerna-changelog --next-version v${{ steps.css_version.outputs.version }}
+          CHANGELOG=$(yarn lerna-changelog --next-version v${{ steps.css_version.outputs.version }})
           echo $CHANGELOG >> CHANGELOG.md
           CHANGELOG="${CHANGELOG//'%'/'%25'}"
           CHANGELOG="${CHANGELOG//$'\n'/'%0A'}"
