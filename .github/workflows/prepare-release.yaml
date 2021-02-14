@@ -69,7 +69,8 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               head: 'release',
-              base: 'main'
+              base: 'main',
+              state: 'open'
             });
             if (prs.length > 0) {
               await github.pulls.update({
