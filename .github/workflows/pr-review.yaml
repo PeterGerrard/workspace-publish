@@ -1,0 +1,48 @@
+name: Build
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - main
+  workspace_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build_and_deploy_job:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+    name: Build and Deploy Job
+    steps:
+      steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      
+      # TODO: Investigate https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows
+
+      - name: Install packages
+        run: yarn install
+
+      - name: Run Build
+        run: yarn build
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Run Az CLI script
+        run: |
+          az webapp list --query "[?state=='Running']"
+
+  #close_pull_request_job:
+  #  if: github.event_name == 'pull_request' && github.event.action == 'closed'
+  #  runs-on: ubuntu-latest
+  #  name: Close Pull Request Job
+  #  steps:
+  #    - name: Close Pull Request
+  #      id: closepullrequest
+  #      uses: Azure/static-web-apps-deploy@v1
+  #      with:
+  #        azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_MANGO_RIVER_0AFDB141E }}
