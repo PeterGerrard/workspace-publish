@@ -20,14 +20,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      
-      # TODO: Investigate https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows
-
-      - name: Install packages
-        run: yarn install
-
-      - name: Run Build
-        run: yarn build
         
       - name: Azure Static Web Apps Deploy
         uses: Azure/static-web-apps-deploy@v1
@@ -39,7 +31,7 @@ jobs:
           # Required token
           azure_static_web_apps_api_token: ${{ secrets.AZURE_CREDENTIALS }}
           # Identical in use to output_location
-          app_artifact_location: build
+          # app_artifact_location: dist
           # Token for interacting with the Github repository. Currently used only for commenting on Pull Requests.
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           # Skips the build step for the application source code if set to true.
